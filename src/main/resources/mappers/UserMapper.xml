@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com">
+    <!--findAll
+    id:当前唯一标示
+    resultType:指定返回参数对象
+    parameterType="",:参数类型
+
+    -->
+
+
+    <select id="findAll" parameterType="Integer" resultType="com.corre.domain.User">
+        SELECT * FROM tb_user where id=#{id}
+    </select>
+
+
+    <select id="likeleecx" parameterType="java.lang.String" resultType="com.corre.domain.User">
+        select * from tb_user where name like "%"#{name}"%"
+    </select>
+
+
+    <insert id="insert" parameterType="com.corre.domain.User" >
+        insert into tb_user(id,user_name,password,name,age,sex) values (#{id},#{user_name},#{password},#{name},#{age},#{sex})
+    </insert>
+
+
+    <insert id="insertId" parameterType="com.corre.domain.User" >
+    <selectKey keyProperty="id" resultType="Integer" order="BEFORE">
+      select LAST_INSERT_ID()
+
+    </selectKey>
+        insert into tb_user(id,user_name,password,name,age,sex) values (#{id},#{user_name},#{password},#{name},#{age},#{sex})
+    </insert>
+
+
+    <update id="update" parameterType="com.corre.domain.User">
+       update tb_user
+       set password=#{password}
+       where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="com.corre.domain.User" >
+        <!-- 为了防止mapper.xml文件在解析时候出现非法字符 < > $
+        那么就使用CDATA标签，在CDATA标签内容都会被忽略当成文本数据而不是标签
+        -->
+        <![CDATA[
+        delete from tb_user
+        where user_name=#{user_name} and name=#{name}
+        ]]>
+    </delete>
+
+</mapper>
