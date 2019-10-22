@@ -14,9 +14,9 @@ public class jdbc {
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://120.79.238.172/leecx";
+            String url = "jdbc:mysql://xx.xx.xx.xx:3306/leecx";
             String user = "root";
-            String password = "Chndu@422";
+            String password = "root";
             connection = DriverManager.getConnection(url,user,password);
             String sql = "select * from tb_user where id=?";
             preparedStatement = connection.prepareStatement(sql);
